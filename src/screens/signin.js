@@ -2,11 +2,10 @@ import React, {useState,useEffect } from 'react';
 import { auth, signInWithEmailAndPassword } from '../configs/firebase';
 import { Link } from 'react-router-dom';
 import {useHistory} from 'react-router-dom'
-import { useContext } from 'react/cjs/react.development';
-import { GlobalContext } from '../context/context';
-import RestDashboard from './rest-dashboard';
+// import { useContext } from 'react/cjs/react.development';
+// import { GlobalContext } from '../context/context';
 function SignIn() {
-    let {state , dispatch } = useContext(GlobalContext);
+    // let {state , dispatch } = useContext(GlobalContext);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errMsg, setErrMsg] = useState('');
@@ -30,28 +29,7 @@ function SignIn() {
 
 
 
-        useEffect(()=>{
-            // state.authUser?.userRole ==='restaurant' ?
-            // history.push('/rest-dashboard'):null
-
-
-
-            // if(state.authUser != null){
-            
-                // if(state.authUser?.userRole === 'restaurant'){
-                //     history.push('/')
         
-                // }else if(state.authUser?.userRole === 'customer'){
-                //     history.push('/')
-                // }
-
-            // }
-            //     else{
-            //         history.push('/')
-            //     }
-            
-           
-        },[state.authUser])
 
 
 
@@ -64,15 +42,7 @@ function SignIn() {
 
 
     return (
-        // <div>
-        //     <fieldset>
-        //         <legend><h1>LOGIN !</h1></legend>
-        //     <label>Email<input type="email" value={email} onChange={(ev) => { setEmail(ev.target.value) }} /></label>
-        //     <label>Password<input type="password" value={password} onChange={(ev) => { setPassword(ev.target.value) }} /></label>
-        //     <button onClick={signin}>Signin</button>
-        //     {errMsg ? <p>{errMsg}</p> : null}
-        //     </fieldset>
-        // </div>
+       
         <div className='container'>
 
 

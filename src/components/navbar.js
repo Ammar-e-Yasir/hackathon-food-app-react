@@ -3,11 +3,7 @@ import {
     Link
 } from "react-router-dom";
 import { GlobalContext } from "../context/context";
-import { auth, signOut } from '../configs/firebase'
 import Logout from "../screens/logout";
-import { useEffect } from "react/cjs/react.development";
-import { cleanup } from "@testing-library/react";
-import SignIn from "../screens/signin";
 
 export default function Nav() {
     const { state } = useContext(GlobalContext);

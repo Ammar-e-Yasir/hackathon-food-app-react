@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useContext } from "react";
 import { GlobalContext } from "../context/context";
-import { useHistory } from "react-router";
+// import { useHistory } from "react-router";
 import { db, collection, where, query, getDocs, doc, setDoc, addDoc, auth, getDoc } from '../configs/firebase'
-import Nav from "../components/navbar";
-import Logout from "./logout";
+// import Nav from "../components/navbar";
+// import Logout from "./logout";
 
 
 export default function RestDishes() {
@@ -11,9 +11,7 @@ export default function RestDishes() {
     const { state } = useContext(GlobalContext);
 
 
-    // let history = useHistory();
     const [allDishes, setAllDish] = useState([]);
-    // const [userId , setUserId] = useState('');
     let uid = localStorage.getItem("restId");
 
 
@@ -52,52 +50,35 @@ export default function RestDishes() {
         await addDoc(orderRef, obj)
 
 
-        //    await addDoc(collection(db,'orders'),{
-        //     custID:state.authUser.uid,
-        //     restID:uid,
-        //     foodImg:element.children[0].src,
-        //     foodname:element.children[1].innerText,
-        //     category:element.children[2].innerText,
-        //     price:element.children[3].innerText,
-        //     delivery:element.children[4].innerText,
-        //   })
         alert('Order has been done !')
-        // });
-        // let orderRef = doc(db,'orders', uid);
-        // await setDoc(orderRef,{
-        //         custID:state.authUser.uid,
-        //         restID:uid,
-        //         foodImg:element.children[0].src,
-        //         foodname:element.children[1].innerText,
-        //         category:element.children[2].innerText,
-        //         price:element.children[3].innerText,
-        //         delivery:element.children[4].innerText,
-        //   })
-
 
 
 
     }
-    // console.log(state.restId)
     return (
-        <div className='mt-5'>
-            <h1>Our Food</h1>
+        <div className='border'>
+            <h1 className='text-center'>Our Food</h1>
+            <div className='container d-flex  border' >
             {allDishes.map(({ foodname, foodImg, category, delivery, price, id }, index) => {
-                return (
-                    <div key={index} className='border mt-5 h-50 w-50' id={id}>
-                        <img src={foodImg} className='h-50 w-50' />
-                        <h2>{foodname}</h2>
-                        <h3>{category}</h3>
-                        <p>{price}</p>
-                        <p>{delivery}</p>
-                        <button className='btn btn-success' onClick={(e) => { orderItem(e.target.parentNode) }}>Order</button>
-
+               
+                return(
+                    <div className='col-4' id={id} key={index}>
+                    <div className="card m-4 ">
+                        <img className="card-img-top" src={foodImg} alt="Card image cap" height='300px' />
+                        <div className="card-body">
+                            <h2 className="card-title">{foodname}</h2>
+                            <p className="card-text">Rs. {price}</p>
+                            <p className="card-text">{category}</p>
+                            <p className="card-text">Delivery : {delivery}</p>
+                            <button className='btn btn-success' onClick={(e) => { orderItem(e.target.parentNode.parentNode.parentNode) }}>Order</button>
+                        </div>
                     </div>
+                    </div>
+                
                 )
-
             })
-            }
-            {/* <Logout/>  */}
+        }
+        </div>
         </div>
     )
 }

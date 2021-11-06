@@ -13,12 +13,11 @@ import Nav from "../components/navbar"
 import CustomerReg from "../screens/cust-register";
 import RestaurantReg from "../screens/rest-reg";
 import Home from "../screens/home";
-import ResDashboard from "../screens/rest-dashboard";
 import CustomerHome from "../screens/cust-home";
 import AddDish from "../screens/add-dish";
 import RestDishes from "../screens/res-dish";
-import Logout from "../screens/logout";
-import RestDashboard from "../screens/rest-dashboard";
+// import Logout from "../screens/logout";
+// import RestDashboard from "../screens/rest-dashboard";
 import PendingOrders from "../screens/pending-orders";
 import AcceptedOrders from "../screens/accepted-orders";
 import DeliveredOrders from "../screens/delivered-orders";
@@ -33,16 +32,11 @@ export default function App() {
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 fetchUserInfo(user.uid);
-                console.log('user found !')
-
-
+                console.log('user found !');
             }
-
             else {
                 console.log('user not found');
-                // fetchAllUserInfo();
                 dispatch({ type: "AUTH_USER", payload: null });
-
             }
         });
 
@@ -54,27 +48,11 @@ export default function App() {
         userInfo = userInfo.data();
         console.log(userInfo.userRole)
         dispatch({ type: "AUTH_USER", payload: userInfo });
-        // if(userInfo.userRole =='restaurant'){
-        //     history.push('/rest-dashboard')
-        // }
-        // else if(userInfo.userRole =="customer"){
-        //     history.push('/cust-home')
-        // }
-        // console.log(auth.currentUser.uid)
-        // localStorage.setItem('authUserId' , uid)
+
 
     }
 
-    // const fetchAllUserInfo = async () => {
 
-    //     let userRef = collection(db, 'users');
-    //     let allUsersInfo = await getDocs(userRef);
-
-    //     allUsersInfo.forEach((doc) => {
-    //         dispatch({ type: "ALL_USERS", payload: doc.data() });
-    //     });
-
-    // }
 
 
 
@@ -84,21 +62,6 @@ export default function App() {
             <div>
                 <Nav />
                 <Switch>
-                    {/* {
-                        state.authUser ?
-                            null : <>
-
-                                <Route  path="/signup">
-                                    <SignUp />
-                                </Route>
-                                <Route exact path="/">
-                                    <SignIn />
-                                </Route>
-
-                                </>
-                            } */}
-
-
 
                     {state?.authUser ?
                         null : <>
@@ -132,42 +95,8 @@ export default function App() {
 
 
 
-                    {/* {state.authUser.userRole == 'restaurant' ?
-                        <>
-
-                            <Route path='/rest-reg' component={RestaurantReg} />
-                            <Route exact path='/' component={SignIn} />
-                            <Route path='/cust-reg' component={CustomerReg} />
-                            <Route path='/add-dish' component={AddDish} />
-                            <Route path='/rest-dashboard' component={RestDashboard} />
-                            <Route path='/pending-orders' component={PendingOrders} />
-                            <Route path='/accepted-orders' component={AcceptedOrders} />
-                            <Route path='/delivered-orders' component={DeliveredOrders} />
-                            <Logout />
-                        </> 
-                        
-                        : null
-                    }
- */}
-
-                    {/* 
-                    {
-                        state.authUser ?
-                            <>
 
 
-                               
-
-                            </> : null
-                    } */}
-
-                    {/* 
-                    <Route exact path='/' component={SignIn} />
-                    <Route path='/signup' component={SignUp} />
-                    <Route path='/user-home' component={UserHome} />
-                    <Route path='/user-tweet' component={MyTweet} />
-                    <Route path='/user-profile' component={MyProfile} />
-                    <Route path='/write' component={MyComponent} /> */}
 
 
 

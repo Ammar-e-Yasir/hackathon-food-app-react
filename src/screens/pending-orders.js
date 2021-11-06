@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, } from "react";
 import { useState } from "react/cjs/react.development";
-import { db, collection, where, query, getDocs, addDoc, deleteDoc, doc,getDoc } from '../configs/firebase';
+import { db, collection, where, query, getDocs, addDoc, deleteDoc, doc, getDoc } from '../configs/firebase';
 import { GlobalContext } from "../context/context";
 
 export default function PendingOrders() {
@@ -12,7 +12,6 @@ export default function PendingOrders() {
     // console.log(state.authUser.uid)
 
     useEffect(async () => {
-        // setTimeout(async()=>{
         try {
             const q = query(collection(db, "orders"), where("uid", "==", state.authUser.uid));
             let orderRef = await getDocs(q);
@@ -29,7 +28,6 @@ export default function PendingOrders() {
         catch (e) {
             console.log(e)
         }
-        // },5000)
 
     }, [state.authUser])
 
@@ -39,32 +37,19 @@ export default function PendingOrders() {
             let a = doc(db, "orders", element.id);
             let b = await getDoc(a);
             console.log(b.data())
-            
-            
-            
+
+
+
             let orderAccRef = collection(db, 'ordersAccepted');
-            await addDoc(orderAccRef,b.data());
-            
-            
-            // await addDoc(orderAccRef, {
-                //     orderId:element.id,
-                //     restID: state.authUser.uid,
-                
-                //     foodImg: element.children[0].src,
-                //     foodname: element.children[1].innerText,
-                //     category: element.children[2].innerText,
-                //     price: element.children[3].innerText,
-                //     custId: element.children[4].innerText
-                
-                
-                
-                // })
-                
-                
-                let docDel = doc(db, "orders", element.id);
-                await deleteDoc(docDel);
-            }
-            catch (e) {
+            await addDoc(orderAccRef, b.data());
+
+
+
+
+            let docDel = doc(db, "orders", element.id);
+            await deleteDoc(docDel);
+        }
+        catch (e) {
             console.log(e)
         }
 
@@ -81,24 +66,30 @@ export default function PendingOrders() {
 
     return (
         <div>
-            <h1>Pending Orders</h1>
-            {pendingOrders.map(({ foodname, foodImg, category, price, custID, id }, index) => {
-                return (
-                    <div key={index} className='border mt-5 h-50 w-50' id={id}>
-                        <img src={foodImg} className='h-50 w-50' />
-                        <h3>{category}</h3>
-                        <h2>{foodname}</h2>
-                        <p>{price}</p>
-                        <p style={{ display: 'none' }}>{custID}</p>
-                        <button className='btn btn-success' onClick={(e) => { acceptedOrder(e.target.parentNode) }}>Accept</button>
-
-                    </div>
-                )
-
-            })
-            }
+            <h1 className='text-center'>Pending Orders</h1>
+            <div className='container d-flex border'>
+                {pendingOrders.map(({ foodname, foodImg, category, price, custID, id }, index) => {
+                    return (
 
 
+                        <div className='col-4' id={id} key={index}>
+                            <div className="card m-4 ">
+                                <img className="card-img-top" src={foodImg} alt="Card image cap" height='300px' />
+                                <div className="card-body">
+                                    <h2 className="card-title">{foodname}</h2>
+                                    <p className="card-text">{category}</p>
+                                    <p className="card-text">Rs. {price}</p>
+                                    <button className='btn btn-success' onClick={(e) => { acceptedOrder(e.target.parentNode.parentNode.parentNode) }}>Accept</button>
+                                </div>
+                            </div>
+                        </div>
+                    )
+
+                })
+                }
+
+
+            </div>
         </div>
     )
 }
